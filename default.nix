@@ -22,7 +22,8 @@
 #  > "DBI",
 #  > "lubridate",
 #  > "stringr",
-#  > "survey"),
+#  > "survey",
+#  > "srvyr"),
 #  > ide = "none",
 #  > project_path = path_default_nix,
 #  > overwrite = TRUE,
@@ -55,6 +56,7 @@ let
       reactable
       renv
       shiny
+      srvyr
       stringr
       survey
       testthat

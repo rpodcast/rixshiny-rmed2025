@@ -10,6 +10,7 @@ rix(
     "shiny",
     "cards",
     "gt",
+    "gtsummary",
     "echarts4r",
     "reactable",
     "dplyr",
@@ -26,7 +27,8 @@ rix(
     "DBI",
     "lubridate",
     "stringr",
-    "survey"
+    "survey",
+    "srvyr"
   ),
   ide = "none",
   project_path = path_default_nix,
