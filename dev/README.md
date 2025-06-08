@@ -58,7 +58,7 @@ Verify that the container version of the application runs correctly on your loca
 
 ```bash
 # staging
-docker run --rm -p 6320:7320 --name nhanes.shinaypp rpodcast/nhanes.shinyapp:staging
+docker run --rm -p 6320:7320 --name nhanes.shinyapp rpodcast/nhanes.shinyapp:staging
 
 # production
 docker run --rm -p 6320:8320 --name nhanes.shinyapp rpodcast/nhanes.shinyapp:main
