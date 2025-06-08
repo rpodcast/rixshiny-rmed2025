@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <meta name="author" content="Eric Nantz">
+  <meta name="dcterms.date" content="2025-04-11">
+  <title>In the Nix of Time</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-90c726aad95dfa42b7f7e7b628fa655f.css">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-codewindow/codewindow.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="black" data-background-image="assets/img/futuristic_city.jpg" data-background-opacity="0.4" data-background-size="contain" class="quarto-title-block center">
+  <h1 class="title">In the Nix of Time</h1>
+  <p class="subtitle">A new approach to Shiny development &amp; deployment with Nix and {rix}</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Eric Nantz 
+</div>
+        <p class="quarto-title-affiliation">
+            Statistician / Developer / Podcaster
+          </p>
+        <p class="quarto-title-affiliation">
+            Eli Lilly &amp; Company
+          </p>
+        <p class="quarto-title-affiliation">
+            <i class="fa-brands fa-bluesky" aria-label="bluesky"></i> <a href="https://bsky.app/profile/rpodcast.bsky.social"><span class="citation" data-cites="rpodcast.bsky.social">@rpodcast.bsky.social</span></a>
+          </p>
+        <p class="quarto-title-affiliation">
+            <i class="fa-brands fa-mastodon" aria-label="mastodon"></i> <a href="https://podcastindex.social/@rpodcast"><span class="citation" data-cites="rpodcast">@rpodcast</span><span class="citation" data-cites="podcastindex.social">@podcastindex.social</span></a>
+          </p>
+        <p class="quarto-title-affiliation">
+            <i class="fa-brands fa-linkedin" aria-label="linkedin"></i> <a href="https://www.linkedin.com/in/eric-nantz-6621617/"><span class="citation" data-cites="eric-nantz">@eric-nantz</span></a>
+          </p>
+    </div>
+</div>
+
+  <p class="date">2025-04-11</p>
+</section>
+<section id="its-never-just-shiny" class="slide level2">
+<h2>It’s Never Just Shiny …</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Additional R packages</li>
+<li>External services or APIs</li>
+<li>Other languages (Python, JavaScript)</li>
+<li>Software dependencies for packages</li>
+<li>Deployment platforms</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/img/warehouse.jpg"></p>
+</div></div>
+</section>
+<section id="managing-dependencies" class="slide level2">
+<h2>Managing Dependencies</h2>
+<div class="r-stack">
+<p><img data-src="assets/img/renv.svg" class="fragment absolute" style="top: 100px; left: 0px; width: 40%; "></p>
+<p><img data-src="assets/img/docker-logo-blue.svg" class="fragment absolute" style="top: 250px; right: 50px; width: 50%; "></p>
+</div>
+</section>
+<section id="section" class="slide level2" data-background-image="assets/img/shinydevseries_devcontainers.png" data-background-size="contain">
+<h2></h2>
+</section>
+<section id="lupslide-id" class="slide level2" data-menu-title="Linux Friends">
+<h2></h2>
+<div class="r-stack">
+<p><img data-src="assets/img/jb_collage.png" class="fragment"></p>
+<p><img data-src="assets/img/martin_wimpress.png" class="fragment"></p>
+<p><img data-src="assets/img/martin_livestream_screengrab.png" class="fragment"></p>
+</div>
+<aside class="notes">
+<p>Left half: JB with their logo and headshots, then show screen grabs of each Nix focused episode player * Nix challenge launched in March 2022</p>
+<p>Right half: Martin Wimpress, show screengrab of youtube livestream * Martin Wimpress joins Determinant Systems in 2023 * Livestream with his public exploration of Nix https://www.youtube.com/watch?v=v9GM8k9Aa7k * Aired April 6, 2023</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="brunoslide-id" class="slide level2" data-menu-title="Bruno Discovers Nix">
+<h2>Worlds Collide</h2>
+<div class="r-stack">
+<div class="fragment">
+<p><img data-src="assets/img/bruno.jpg" class="absolute" style="top: 200px; left: 0px; width: 30%; "></p>
+<div class="absolute" style="top: 530px; left: 0px; ">
+<p>Bruno Rodriguez</p>
+</div>
+</div>
+<div class="fragment">
+<p><img data-src="assets/img/rweekly_issue_top.png" class="absolute" style="top: 40px; right: 10px; "></p>
+<p><img data-src="assets/img/rweekly_issue_bottom.png" class="absolute" style="top: 230px; right: 10px; "></p>
+</div>
+<p><img data-src="assets/img/bruno_series_all.png" class="fragment absolute" style="top: 60px; right: 0px; "></p>
+</div>
+<aside class="notes">
+<p><img data-src="assets/img/bruno_nix_part1.png" class="fragment absolute" style="top: 500px; left: 0px; "></p>
+<ul>
+<li>July 2023 https://brodrigues.co/posts/2023-07-13-nix_for_r_part1.html</li>
+<li>Covered practically his entire series on Nix with R Weekly
+<ul>
+<li>2024-W15 (Part 11) - highlight</li>
+<li>2024-W40 (rix on CRAN) - highlight</li>
+<li>2023-W32 (part 3)</li>
+<li>2023-W29 (part 1) - highlight https://brodrigues.co/posts/2023-07-13-nix_for_r_part1.html</li>
+<li>2024-W02 (part 8)</li>
+<li>2023-W30 (part 2)</li>
+<li>2024-W10 (part 10)</li>
+<li>2023-W43 (part 7)</li>
+<li>2023-W33 (YouTube video introducing Nix)</li>
+<li>2024-W36 (part 12)</li>
+<li>2023-W38 (part 5)</li>
+<li>2024-W20 (Reproducible Nix workshop)</li>
+<li>2024-W06 (part 9)</li>
+<li>2023-W34 (part 4)</li>
+<li>2024-W28 (YouTube video introducing Rix)</li>
+<li>2023-W35 (YouTube video running old project with old R and old packages)</li>
+<li>2023-W47 (YouTube video GH actions with Nix)</li>
+</ul></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section>
+<section id="what-is-nix" class="title-slide slide level1 center">
+<h1>🤔 What is Nix?</h1>
+
+</section>
+<section id="nixhighlevel-id" class="slide level2" data-menu-title="Nix High-Level Overview">
+<h2></h2>
+<div class="r-fit-text">
+<p>Package Manager</p>
+<p>Domain-Specific Language</p>
+<p>Immutable Installation</p>
+<p>Sandboxed Environments</p>
+</div>
+</section></section>
+<section>
+<section id="again-what-is-nix" class="title-slide slide level1 center">
+<h1>🤔 Again, what is Nix?</h1>
+<aside class="notes">
+<ul>
+<li>Eelco Dolstra came up with the idea of Nix in his dissertation (A tool called Maak)</li>
+<li>NixOS in 2006 - Started as an experiment to verify build purity</li>
+<li>At heart: Nix is a package manager</li>
+<li>Key features
+<ul>
+<li>All build files collected in the <strong>Nix store</strong> (like graph database)</li>
+<li>Immutable, read-only file system</li>
+<li>Nix is also a functional language used to describe derivations</li>
+<li>Similar to Git: Each path in the Nix store is a hash value based on all input information for that piece of software</li>
+<li>Derivations give build instructions for items in Nix store</li>
+</ul></li>
+<li>Everything is explicit, transparent</li>
+<li>Purely functional language (uses immutability of the nix store)</li>
+<li>Lazy language, dynamically typed</li>
+<li>Mention history of Nix (founder, their dissertation)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="nix---a-package-manager" class="slide level2">
+<h2>Nix - A Package Manager</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Collection of over 120,000 <strong>recipes</strong> of apps, utilities, languages, etc.</li>
+<li>Package repository <code>nixpkgs</code> available on <a href="">GitHub</a>
+<ul>
+<li>Ability to pin repository to specific point in time</li>
+</ul></li>
+<li>Required system dependencies are automatically installed</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/img/nix_packages_searchbar.png"></p>
+<p><img data-src="assets/img/nix_package_R_entry.png"></p>
+</div></div>
+</section>
+<section id="installing-nix" class="slide level2">
+<h2>Installing Nix</h2>
+<p><strong>Easy Mode</strong>: <a href="https://zero-to-nix.com/start/install/">Determinant Systems Nix Installer</a></p>
+<div class="codewindow">
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">'=https'</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> <span class="at">-L</span> https://install.determinate.systems/nix <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sh</span> <span class="at">-s</span> <span class="at">--</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Supported platforms: Linux, Mac OS X, and Windows (via Windows Subsystem for Linux)</li>
+</ul>
+<aside class="notes">
+<p>https://zero-to-nix.com/start/install/</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="try-before-you-buy" class="slide level2">
+<h2>Try Before You Buy!</h2>
+<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="assets/img/pokemonsay.mp4"></video>
+<aside class="notes">
+<p>pokemonsay: https://github.com/HRKings/pokemonsay-newgenerations</p>
+<p>run this on thelio (navigate to /mnt/media_drive2/quickemu_vm/quickemu_new_version)</p>
+<p>quickemu –vm ubuntu-server-24.04.conf –display none</p>
+<p>Then in the same host (thelio) connect to the VM via ssh:</p>
+<p>ssh ubuntunix</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="under-the-nix-hood" class="slide level2">
+<h2>Under the Nix Hood</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Nix Store</a></li><li><a href="#tabset-2-2">Derivation</a></li><li><a href="#tabset-2-3">Dependencies</a></li><li><a href="#tabset-2-4">Network</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="codewindow">
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># which pokemonsay</span></span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0/bin/pokemonsay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/by-name/po/pokemonsay/package.nix</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">lib,</span></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">stdenvNoCC,</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">fetchFromGitHub,</span></span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">fetchpatch,</span></span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">cowsay,</span></span>
+<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">coreutils,</span></span>
+<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">findutils,</span></span>
+<span id="cb3-10"><a aria-hidden="true" tabindex="-1"></a><span class="ex">}:</span></span>
+<span id="cb3-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a aria-hidden="true" tabindex="-1"></a><span class="ex">stdenvNoCC.mkDerivation</span> rec {</span>
+<span id="cb3-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">pname</span> = <span class="st">"pokemonsay"</span><span class="kw">;</span></span>
+<span id="cb3-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">version</span> = <span class="st">"1.0.0"</span><span class="kw">;</span></span>
+<span id="cb3-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">src</span> = fetchFromGitHub {</span>
+<span id="cb3-17"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">owner</span> = <span class="st">"HRKings"</span><span class="kw">;</span></span>
+<span id="cb3-18"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">repo</span> = <span class="st">"pokemonsay-newgenerations"</span><span class="kw">;</span></span>
+<span id="cb3-19"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">rev</span> = <span class="st">"v</span><span class="va">${version}</span><span class="st">"</span><span class="kw">;</span></span>
+<span id="cb3-20"><a aria-hidden="true" tabindex="-1"></a>    <span class="bu">hash</span> = <span class="st">"sha256-IDTAZmOzkUg0kLUM0oWuVbi8EwE4sEpLWrNAtq/he+g="</span><span class="kw">;</span></span>
+<span id="cb3-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="kw">};</span></span>
+<span id="cb3-22"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">patches</span> = [</span>
+<span id="cb3-24"><a aria-hidden="true" tabindex="-1"></a>    <span class="kw">(</span><span class="ex">fetchpatch</span> {</span>
+<span id="cb3-25"><a aria-hidden="true" tabindex="-1"></a>      <span class="co"># https://github.com/HRKings/pokemonsay-newgenerations/pull/5</span></span>
+<span id="cb3-26"><a aria-hidden="true" tabindex="-1"></a>      <span class="ex">name</span> = <span class="st">"word-wrap-fix.patch"</span><span class="kw">;</span></span>
+<span id="cb3-27"><a aria-hidden="true" tabindex="-1"></a>      <span class="ex">url</span> = <span class="st">"https://github.com/pbsds/pokemonsay-newgenerations/commit/7056d7ba689479a8e6c14ec000be1dfcd83afeb0.patch"</span><span class="kw">;</span></span>
+<span id="cb3-28"><a aria-hidden="true" tabindex="-1"></a>      <span class="bu">hash</span> = <span class="st">"sha256-aqUJkyJDWArLjChxLZ4BbC6XAB53LAqARzTvEAxrFCI="</span><span class="kw">;</span></span>
+<span id="cb3-29"><a aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span><span class="kw">)</span></span>
+<span id="cb3-30"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span><span class="kw">;</span></span>
+<span id="cb3-31"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">postPatch</span> = <span class="st">''</span></span>
+<span id="cb3-33"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">substituteInPlace</span> pokemonsay.sh <span class="dt">\</span></span>
+<span id="cb3-34"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-35"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'INSTALL_PATH=''${HOME}/.bin/pokemonsay'</span> <span class="dt">\</span></span>
+<span id="cb3-36"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">""</span> <span class="dt">\</span></span>
+<span id="cb3-37"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-38"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'POKEMON_PATH=''${INSTALL_PATH}/pokemons'</span> <span class="dt">\</span></span>
+<span id="cb3-39"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'POKEMON_PATH=${placeholder "out"}/share/pokemonsay'</span> <span class="dt">\</span></span>
+<span id="cb3-40"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-41"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'$(find '</span> <span class="dt">\</span></span>
+<span id="cb3-42"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'$(${findutils}/bin/find '</span> <span class="dt">\</span></span>
+<span id="cb3-43"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-44"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'$(basename '</span> <span class="dt">\</span></span>
+<span id="cb3-45"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'$(${coreutils}/bin/basename '</span> <span class="dt">\</span></span>
+<span id="cb3-46"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-47"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'cowsay -f '</span> <span class="dt">\</span></span>
+<span id="cb3-48"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'${cowsay}/bin/cowsay -f '</span> <span class="dt">\</span></span>
+<span id="cb3-49"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-50"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'cowthink -f '</span> <span class="dt">\</span></span>
+<span id="cb3-51"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'${cowsay}/bin/cowthink -f '</span></span>
+<span id="cb3-52"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">substituteInPlace</span> pokemonthink.sh <span class="dt">\</span></span>
+<span id="cb3-54"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">--replace-fail</span> <span class="dt">\</span></span>
+<span id="cb3-55"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">'./pokemonsay.sh'</span> <span class="dt">\</span></span>
+<span id="cb3-56"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="va">${placeholder</span><span class="er"> "out"</span><span class="va">}</span><span class="st">/bin/pokemonsay"</span></span>
+<span id="cb3-57"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">''</span><span class="kw">;</span></span>
+<span id="cb3-58"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">installPhase</span> = <span class="st">''</span></span>
+<span id="cb3-60"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$out</span>/<span class="dt">{bin</span><span class="op">,</span><span class="dt">share/pokemonsay}</span></span>
+<span id="cb3-61"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cp</span> pokemonsay.sh <span class="va">$out</span>/bin/pokemonsay</span>
+<span id="cb3-62"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cp</span> pokemonthink.sh <span class="va">$out</span>/bin/pokemonthink</span>
+<span id="cb3-63"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cp</span> pokemons/<span class="pp">*</span>.cow <span class="va">$out</span>/share/pokemonsay</span>
+<span id="cb3-64"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">''</span><span class="kw">;</span></span>
+<span id="cb3-65"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">doInstallCheck</span> = true<span class="kw">;</span></span>
+<span id="cb3-67"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">installCheckPhase</span> = <span class="st">''</span></span>
+<span id="cb3-68"><a aria-hidden="true" tabindex="-1"></a>    <span class="kw">(</span><span class="bu">set</span> <span class="at">-x</span></span>
+<span id="cb3-69"><a aria-hidden="true" tabindex="-1"></a>      <span class="bu">test</span> <span class="st">"</span><span class="va">$($out</span><span class="ex">/bin/pokemonsay</span> <span class="at">--list</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="st">"</span> <span class="at">-ge</span> 891</span>
+<span id="cb3-70"><a aria-hidden="true" tabindex="-1"></a>    <span class="kw">)</span></span>
+<span id="cb3-71"><a aria-hidden="true" tabindex="-1"></a>  <span class="st">''</span><span class="kw">;</span></span>
+<span id="cb3-72"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">meta</span> = with lib<span class="kw">;</span> <span class="kw">{</span></span>
+<span id="cb3-74"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">description</span> = <span class="st">"Print pokemon in the CLI! An adaptation of the classic cowsay"</span><span class="kw">;</span></span>
+<span id="cb3-75"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">homepage</span> = <span class="st">"https://github.com/HRKings/pokemonsay-newgenerations"</span><span class="kw">;</span></span>
+<span id="cb3-76"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">license</span> = licenses.mit<span class="kw">;</span></span>
+<span id="cb3-77"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">platforms</span> = platforms.all<span class="kw">;</span></span>
+<span id="cb3-78"><a aria-hidden="true" tabindex="-1"></a>    <span class="ex">maintainers</span> = with maintainers<span class="kw">;</span> <span class="bu">[</span> pbsds <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb3-79"><a aria-hidden="true" tabindex="-1"></a>  <span class="kw">};</span></span>
+<span id="cb3-80"><a aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-3">
+<div class="codewindow">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># nix-store --query --requisites $(which pokemonsay)</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/m2047a1xwgblgkrnbxz0yilkaqfrbf2b-xgcc-14-20241116-libgcc</span></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/nj19yxkqf0iqjqn4x6dbglsvqk5bgsbs-libunistring-1.3</span></span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/y2xxdhhjy2l5mgpm3d0rw2wxmpd61my4-libidn2-2.3.7</span></span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/rmy663w9p7xb202rcln4jjzmvivznmz8-glibc-2.40-66</span></span>
+<span id="cb4-6"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/pn0rk0wsmkjazbz380y8xzb99n8sr07g-attr-2.5.2</span></span>
+<span id="cb4-7"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/4izi23kn57b3cw47jddzq14wcv01b5y5-acl-2.3.2</span></span>
+<span id="cb4-8"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/58br4vk3q5akf4g8lx0pqzfhn47k3j8d-bash-5.2p37</span></span>
+<span id="cb4-9"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/ll9dm3r87v4r46a0km0zck4968m60vys-libxcrypt-4.4.38</span></span>
+<span id="cb4-10"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xijpnhg8mg0g4lahwrxdwylpcq7249gc-zlib-1.3.1</span></span>
+<span id="cb4-11"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/id29wx2vp10d5xi6wzsykd4rb9ssaikx-gcc-14-20241116-libgcc</span></span>
+<span id="cb4-12"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/ik84lbv5jvjm1xxvdl8mhg52ry3xycvm-gcc-14-20241116-lib</span></span>
+<span id="cb4-13"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/rlpanzl29s3gv3wgs5720q04rbgysl8a-gmp-with-cxx-6.3.0</span></span>
+<span id="cb4-14"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/yh6qg1nsi5h2xblcr67030pz58fsaxx3-coreutils-9.6</span></span>
+<span id="cb4-15"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/8v0r6qxs5cps7cgcjp215895wja6k0by-perl-5.40.0</span></span>
+<span id="cb4-16"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/ixskg19qvf8gfwbdlajc4498c1km1jyf-cowsay-3.8.4</span></span>
+<span id="cb4-17"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xq5f95pp297afc2xjgrmhmf9w631qp7m-findutils-4.10.0</span></span>
+<span id="cb4-18"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-4">
+<p><img data-src="assets/img/pokemonsay_query_graph.svg" style="width:60.0%"></p>
+<aside class="notes">
+<p>Like a graph database * Entries in store are like nodes, relationships among them are edges</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># edges pointing to R</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">nix-store</span> <span class="at">--query</span> <span class="at">--references</span> <span class="va">$(</span><span class="fu">which</span> R<span class="va">)</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># edges pointing from R (i.e. packages)</span></span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a><span class="ex">nix-store</span> <span class="at">--query</span> <span class="at">--referers</span> <span class="va">$(</span><span class="fu">which</span> R<span class="va">)</span></span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># transitive closure (recursive dependencies)</span></span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a><span class="ex">nix-store</span> <span class="at">--query</span> <span class="at">--requisites</span> <span class="va">$(</span><span class="fu">which</span> R<span class="va">)</span></span>
+<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># graph</span></span>
+<span id="cb5-11"><a aria-hidden="true" tabindex="-1"></a><span class="ex">nix-store</span> <span class="at">--query</span> <span class="at">--graph</span> <span class="va">$(</span><span class="fu">which</span> R<span class="va">)</span> <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tsvg</span> <span class="at">-o</span> scratch/r.svg</span>
+<span id="cb5-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># nix-visualize</span></span>
+<span id="cb5-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/craigmbooth/nix-visualize</span></span>
+<span id="cb5-15"><a aria-hidden="true" tabindex="-1"></a><span class="ex">nix</span> run github:craigmbooth/nix-visualize <span class="at">--</span> <span class="va">$(</span><span class="fu">which</span> R<span class="va">)</span> <span class="at">-s</span> R <span class="at">-o</span> scratch/r_graph_depviz.png</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<section id="enter-rix" class="slide level2">
+<h2>Enter <code>{rix}</code></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Project-specific <strong>sandbox</strong> environments powered by Nix</li>
+<li>Intuitive functions to create Nix expressions, <strong>all within R</strong></li>
+<li>Access to (nearly) all CRAN and Bioconductor packages</li>
+<li>Install packages from GitHub</li>
+<li>Convert <code>renv.lock</code> file to Nix expressions!</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><a href="https://docs.ropensci.org/rix/"><img data-src="assets/img/rix.png"></a></p>
+</div></div>
+<aside class="notes">
+<p>Authors:</p>
+<ul>
+<li>Bruno Rodriguez</li>
+<li>Philipp Baumann</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="rix-in-action" class="slide level2">
+<h2><code>rix</code> in Action</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">rix</a></li><li><a href="#tabset-1-2">Nix Config</a></li><li><a href="#tabset-1-3">Bootstrap Demo</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="sourceCode" id="cb6" data-code-line-numbers="|4|5|6|7-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(rix)</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a><span class="fu">rix</span>(</span>
+<span id="cb6-4"><a></a>  <span class="at">r_ver =</span> <span class="st">"4.4.3"</span>,</span>
+<span id="cb6-5"><a></a>  <span class="at">r_pkgs =</span> <span class="fu">c</span>(<span class="st">"shiny"</span>),</span>
+<span id="cb6-6"><a></a>  <span class="at">system_pkgs =</span> <span class="fu">c</span>(<span class="st">"pokemonsay"</span>),</span>
+<span id="cb6-7"><a></a>  <span class="at">git_pkgs =</span> <span class="fu">list</span>(</span>
+<span id="cb6-8"><a></a>    <span class="fu">list</span>(</span>
+<span id="cb6-9"><a></a>      <span class="at">package_name =</span> <span class="st">"doltr"</span>,</span>
+<span id="cb6-10"><a></a>      <span class="at">repo_url =</span> <span class="st">"https://github.com/ecohealthalliance/doltr/"</span>,</span>
+<span id="cb6-11"><a></a>      <span class="at">commit =</span> <span class="st">"ffb5bc68003e83ebdb9f352654bab2515ca6bf3a"</span></span>
+<span id="cb6-12"><a></a>    )</span>
+<span id="cb6-13"><a></a>  ),</span>
+<span id="cb6-14"><a></a>  <span class="at">project_path =</span> <span class="st">"."</span>,</span>
+<span id="cb6-15"><a></a>  <span class="at">overwrite =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-16"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2">
+<pre><code># This file was generated by the {rix} R package v0.15.8 on 2025-04-10
+# with following call:
+# &gt;rix(r_ver = "4.4.3",
+#  &gt; r_pkgs = c("shiny"),
+#  &gt; system_pkgs = c("pokemonsay"),
+#  &gt; git_pkgs = list(list(package_name = "doltr",
+#  &gt; repo_url = "https://github.com/ecohealthalliance/doltr/",
+#  &gt; commit = "ffb5bc68003e83ebdb9f352654bab2515ca6bf3a")),
+#  &gt; project_path = ".",
+#  &gt; overwrite = TRUE)
+# It uses the `rstats-on-nix` fork of `nixpkgs` which provides improved
+# compatibility with older R versions and R packages for Linux/WSL and
+# Apple Silicon computers.
+# Report any issues to https://github.com/ropensci/rix
+let
+ pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/2025-04-07.tar.gz") {};
+ 
+  rpkgs = builtins.attrValues {
+    inherit (pkgs.rPackages) 
+      shiny;
+  };
+ 
+    doltr = (pkgs.rPackages.buildRPackage {
+      name = "doltr";
+      src = pkgs.fetchgit {
+        url = "https://github.com/ecohealthalliance/doltr/";
+        rev = "ffb5bc68003e83ebdb9f352654bab2515ca6bf3a";
+        sha256 = "sha256-jO+6VsY4Dmk25uk1ytz0qAlH0Vt9gTm34o6ymYW2PLg=";
+      };
+      propagatedBuildInputs = builtins.attrValues {
+        inherit (pkgs.rPackages) 
+          blob
+          cli
+          DBI
+          dbplyr
+          dbx
+          dplyr
+          httpuv
+          jsonlite
+          processx
+          ps
+          rlang
+          RMariaDB
+          R_utils
+          rstudioapi;
+      };
+    });
+     
+  system_packages = builtins.attrValues {
+    inherit (pkgs) 
+      glibcLocales
+      nix
+      pokemonsay
+      R;
+  };
+  
+  shell = pkgs.mkShell {
+    LOCALE_ARCHIVE = if pkgs.system == "x86_64-linux" then "${pkgs.glibcLocales}/lib/locale/locale-archive" else "";
+    LANG = "en_US.UTF-8";
+   LC_ALL = "en_US.UTF-8";
+   LC_TIME = "en_US.UTF-8";
+   LC_MONETARY = "en_US.UTF-8";
+   LC_PAPER = "en_US.UTF-8";
+   LC_MEASUREMENT = "en_US.UTF-8";
+
+    buildInputs = [ doltr rpkgs   system_packages   ];
+    
+  }; 
+in
+  {
+    inherit pkgs shell;
+  }
+</code></pre>
+</div>
+<div id="tabset-1-3">
+<video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="assets/img/rix_demo_prebaked.mp4"></video>
+</div>
+</div>
+</div>
+</section>
+<section id="realistic-use-case" class="title-slide slide level1 center">
+<h1>Realistic Use Case</h1>
+
+</section>
+<section id="reflections-good" class="slide level2">
+<h2>Reflections (Good)</h2>
+<p>✅ Feels like native environments on host system</p>
+<p>✅ One source of truth for dev environment</p>
+<p>✅ Reproducible installations across different operating systems (and even architectures)</p>
+<p>✅ Intelligent use of caching</p>
+</section>
+<section id="reflections-caution" class="slide level2">
+<h2>Reflections (Caution)</h2>
+<p>❗️ Immutable file system conflicts with “temp” file creation</p>
+<p>❗️ Steep learning curve for Nix language</p>
+<p>❗️ HD space could be maxed out on lower-spec systems</p>
+<p>❗️ Early days for Nix &amp; Data Science</p>
+</section>
+<section id="erics-additional-nixrix-explorations" class="slide level2">
+<h2>Eric’s Additional Nix/Rix Explorations</h2>
+<ul>
+<li>R Weekly Curation Calendar (<a href="https://rweekly.github.io/rweekly-calendar/">Quarto Dashboard</a>, <a href="https://github.com/rweekly/rweekly-calendar">GitHub</a> )</li>
+<li>R Submissions Pilot 4 (Docker Container) (<a href="https://github.com/RConsortium/submissions-pilot4-container/tree/main">GitHub</a>)</li>
+<li>Dataset-JSON Viewer: Fork to create web-assembly version (<a href="https://rpodcast.github.io/Dataset-JSON-hackathon/">App</a>, <a href="https://github.com/rpodcast/Dataset-JSON-hackathon">GitHub</a>)</li>
+<li>This presentation (<a href="https://github.com/rpodcast/nix-shinyconf2025">GitHub</a>)</li>
+</ul>
+</section>
+<section id="level-up-your-nix-knowledge" class="slide level2">
+<h2>Level-up your Nix Knowledge</h2>
+<ul>
+<li><a href="https://docs.ropensci.org/rix/"><code>{rix}</code></a>: Reproducible environments with Nix</li>
+<li><a href="https://zero-to-nix.com/">Zero to Nix</a>: Your guide to learning Nix and flakes</li>
+<li><a href="https://brodrigues.co/">Bruno Rodriguez</a>: Reproducible data science with Nix series</li>
+<li><a href="https://shopify.engineering/what-is-nix#">What is Nix</a> (Shopify blog)</li>
+<li><a href="https://serokell.io/blog/what-is-nix">What is Nix and Why You Should Use It</a> (Alexander Bantyev)</li>
+</ul>
+</section>
+<section id="thank-you" class="slide level2">
+<h2>Thank You!</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://r-podcast.org">R-Podcast</a></p>
+<p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://serve.podhome.fm/r-weekly-highlights">R Weekly Highlights</a></p>
+<p><i class="fa-solid fa-display" aria-label="display"></i> <a href="https://shinydevseries.com">Shiny Developer Series</a></p>
+<p><i class="fa-brands fa-mastodon fa-xl" aria-label="mastodon"></i> <a href="https://podcastindex.org/@rpodcast">@rpodcast</a></p>
+<p><i class="fa-brands fa-linkedin fa-xl" aria-label="linkedin"></i> <a href="https://www.linkedin.com/in/eric-nantz-6621617/">eric-nantz</a></p>
+<p><i class="fa-brands fa-github fa-xl" aria-label="github"></i> <a href="https://github.com/rpodcast/">rpodcast</a></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/img/rpodcast-hexagon.png"></p>
+
+
+</div></div>
+</section>
+
+</div>
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p><a href="https://rpodcast.github.io/rixshiny-rmed2025/">rpodcast.github.io/rixshiny-rmed2025</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-codewindow/codewindow.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealCodewindow, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/rpodcast\.github\.io\/rixshiny-rmed2025");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
+                }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>videojs(video_shortcode_videojs_video1);</script>
+    <script>videojs(video_shortcode_videojs_video2);</script>
+    
+
+</body></html>
