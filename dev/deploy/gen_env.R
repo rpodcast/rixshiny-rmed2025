@@ -2,6 +2,12 @@ library(rix)
 
 path_default_nix <- "."
 
+if (nzchar(Sys.getenv("INSTALL_APP_PACKAGE"))) {
+  local_r_pkgs <- "app.tar.gz"
+} else {
+  local_r_pkgs <- NULL
+}
+
 rix(
   date = "2025-05-26",
   r_pkgs = c(
@@ -28,8 +34,11 @@ rix(
     "lubridate",
     "stringr",
     "survey",
-    "srvyr"
+    "srvyr",
+    "rix"
   ),
+  local_r_pkgs = local_r_pkgs,
+  system_pkgs = "quarto",
   ide = "none",
   project_path = path_default_nix,
   overwrite = TRUE,
