@@ -1,0 +1,6 @@
+# nix files
+result
+
+# environment files
+.Renviron
+.env
