@@ -4,3 +4,6 @@ result
 # environment files
 .Renviron
 .env
+
+# development files
+.dev_postgres
