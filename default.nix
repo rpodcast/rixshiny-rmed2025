@@ -6,6 +6,7 @@
 #  > "shiny",
 #  > "cards",
 #  > "gt",
+#  > "gtsummary",
 #  > "echarts4r",
 #  > "reactable",
 #  > "dplyr",
@@ -47,6 +48,7 @@ let
       echarts4r
       golem
       gt
+      gtsummary
       lubridate
       markdown
       nhanesA
