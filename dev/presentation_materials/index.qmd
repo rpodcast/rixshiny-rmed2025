@@ -1,0 +1,495 @@
+---
+title: "In the Nix of Time"
+subtitle: "A new approach to Shiny development & deployment with Nix and {rix}"
+title-slide-attributes: 
+  data-background-image: assets/img/futuristic_city.jpg
+  data-background-size: contain
+  data-background-opacity: "0.4"
+  data-background-color: black
+format:
+  revealjs: 
+    link-external-newwindow: true
+    menu: true
+    theme: [default, custom.scss]
+    code-line-numbers: false
+    footer: "[rpodcast.github.io/rixshiny-rmed2025](https://rpodcast.github.io/rixshiny-rmed2025/)"
+author: 
+  - name: Eric Nantz
+    affiliation:
+      - Statistician / Developer / Podcaster
+      - Eli Lilly & Company
+      - "{{< fa brands bluesky >}} [@rpodcast.bsky.social](https://bsky.app/profile/rpodcast.bsky.social)"
+      - "{{< fa brands mastodon >}} [@rpodcast@podcastindex.social](https://podcastindex.social/@rpodcast)"
+      - "{{< fa brands linkedin >}} [@eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)"
+date: April 11, 2025
+revealjs-plugins:
+  - codewindow
+---
+
+## It's Never Just Shiny ...
+
+:::: {.columns}
+
+::: {.column width="60%"}
+* Additional R packages
+* External services or APIs
+* Other languages (Python, JavaScript)
+* Software dependencies for packages 
+* Deployment platforms
+:::
+
+::: {.column width="40%"}
+
+![](assets/img/warehouse.jpg)
+
+:::
+
+::::
+
+## Managing Dependencies
+
+::: {.r-stack}
+![](assets/img/renv.svg){.fragment .absolute top=100 left=0 width="40%"}
+
+![](assets/img/docker-logo-blue.svg){.fragment .absolute top=250 right=50 width="50%"}
+:::
+
+## {background-image="assets/img/shinydevseries_devcontainers.png" background-size="contain"}
+
+## {#lupslide-id data-menu-title="Linux Friends"}
+
+::: {.r-stack}
+
+![](assets/img/jb_collage.png){.fragment}
+
+![](assets/img/martin_wimpress.png){.fragment}
+
+![](assets/img/martin_livestream_screengrab.png){.fragment}
+:::
+
+::: {.notes}
+Left half: JB with their logo and headshots, then show screen grabs of each Nix focused episode player
+* Nix challenge launched in March 2022
+
+Right half: Martin Wimpress, show screengrab of youtube livestream
+* Martin Wimpress joins Determinant Systems in 2023
+* Livestream with his public exploration of Nix https://www.youtube.com/watch?v=v9GM8k9Aa7k
+* Aired April 6, 2023
+:::
+
+## Worlds Collide {#brunoslide-id data-menu-title="Bruno Discovers Nix"}
+
+::: {.r-stack}
+
+::: {.fragment}
+![](assets/img/bruno.jpg){.absolute top=200 left=0 width="30%"}
+
+::: {.absolute top=530 left=0}
+Bruno Rodriguez
+:::
+
+:::
+
+::: {.fragment}
+![](assets/img/rweekly_issue_top.png){.absolute top=40 right=10}
+
+![](assets/img/rweekly_issue_bottom.png){.absolute top=230 right=10}
+:::
+
+![](assets/img/bruno_series_all.png){.fragment .absolute top=60 right=0}
+:::
+
+
+::: {.notes}
+![](assets/img/bruno_nix_part1.png){.fragment .absolute top=500 left=0}
+
+* July 2023 https://brodrigues.co/posts/2023-07-13-nix_for_r_part1.html
+* Covered practically his entire series on Nix with R Weekly
+    * 2024-W15 (Part 11) - highlight
+    * 2024-W40 (rix on CRAN) - highlight
+    * 2023-W32 (part 3)
+    * 2023-W29 (part 1) - highlight https://brodrigues.co/posts/2023-07-13-nix_for_r_part1.html
+    * 2024-W02 (part 8)
+    * 2023-W30 (part 2)
+    * 2024-W10 (part 10)
+    * 2023-W43 (part 7)
+    * 2023-W33 (YouTube video introducing Nix)
+    * 2024-W36 (part 12)
+    * 2023-W38 (part 5)
+    * 2024-W20 (Reproducible Nix workshop)
+    * 2024-W06 (part 9)
+    * 2023-W34 (part 4)
+    * 2024-W28 (YouTube video introducing Rix)
+    * 2023-W35 (YouTube video running old project with old R and old packages)
+    * 2023-W47 (YouTube video GH actions with Nix)
+:::
+
+# 🤔 What is Nix?
+
+## {#nixhighlevel-id data-menu-title="Nix High-Level Overview"}
+
+::: {.r-fit-text}
+Package Manager
+
+Domain-Specific Language
+
+Immutable Installation
+
+Sandboxed Environments
+:::
+
+# 🤔 Again, what is Nix?
+
+::: {.notes}
+* Eelco Dolstra came up with the idea of Nix in his dissertation (A tool called Maak)
+* NixOS in 2006 - Started as an experiment to verify build purity
+* At heart: Nix is a package manager
+* Key features
+    + All build files collected in the **Nix store** (like graph database)
+    * Immutable, read-only file system
+    * Nix is also a functional language used to describe derivations
+    * Similar to Git: Each path in the Nix store is a hash value based on all input information for that piece of software
+    * Derivations give build instructions for items in Nix store
+* Everything is explicit, transparent
+* Purely functional language (uses immutability of the nix store)
+* Lazy language, dynamically typed
+* Mention history of Nix (founder, their dissertation)
+:::
+
+## Nix - A Package Manager
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+* Collection of over 120,000 **recipes** of apps, utilities, languages, etc.
+* Package repository `nixpkgs` available on [GitHub]()
+    * Ability to pin repository to specific point in time
+* Required system dependencies are automatically installed
+
+:::
+
+::: {.column width="50%"}
+
+![](assets/img/nix_packages_searchbar.png)
+
+![](assets/img/nix_package_R_entry.png)
+
+:::
+
+::::
+
+## Installing Nix
+
+**Easy Mode**: [Determinant Systems Nix Installer](https://zero-to-nix.com/start/install/)
+
+::: {.codewindow}
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+sh -s -- install
+```
+:::
+
+* Supported platforms: Linux, Mac OS X, and Windows (via Windows Subsystem for Linux)
+
+::: {.notes}
+
+https://zero-to-nix.com/start/install/
+
+:::
+
+## Try Before You Buy!
+
+{{< video assets/img/pokemonsay.mp4 >}}
+
+::: {.notes}
+pokemonsay: https://github.com/HRKings/pokemonsay-newgenerations 
+
+run this on thelio (navigate to /mnt/media_drive2/quickemu_vm/quickemu_new_version)
+
+quickemu --vm ubuntu-server-24.04.conf --display none
+
+Then in the same host (thelio) connect to the VM via ssh:
+
+ssh ubuntunix
+:::
+
+## Under the Nix Hood
+
+::: {.panel-tabset}
+
+### Nix Store
+
+::: {.codewindow}
+```bash
+# which pokemonsay
+/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0/bin/pokemonsay
+```
+:::
+
+### Derivation
+
+```bash
+# https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/by-name/po/pokemonsay/package.nix
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchpatch,
+  cowsay,
+  coreutils,
+  findutils,
+}:
+
+stdenvNoCC.mkDerivation rec {
+  pname = "pokemonsay";
+  version = "1.0.0";
+
+  src = fetchFromGitHub {
+    owner = "HRKings";
+    repo = "pokemonsay-newgenerations";
+    rev = "v${version}";
+    hash = "sha256-IDTAZmOzkUg0kLUM0oWuVbi8EwE4sEpLWrNAtq/he+g=";
+  };
+
+  patches = [
+    (fetchpatch {
+      # https://github.com/HRKings/pokemonsay-newgenerations/pull/5
+      name = "word-wrap-fix.patch";
+      url = "https://github.com/pbsds/pokemonsay-newgenerations/commit/7056d7ba689479a8e6c14ec000be1dfcd83afeb0.patch";
+      hash = "sha256-aqUJkyJDWArLjChxLZ4BbC6XAB53LAqARzTvEAxrFCI=";
+    })
+  ];
+
+  postPatch = ''
+    substituteInPlace pokemonsay.sh \
+      --replace-fail \
+        'INSTALL_PATH=''${HOME}/.bin/pokemonsay' \
+        "" \
+      --replace-fail \
+        'POKEMON_PATH=''${INSTALL_PATH}/pokemons' \
+        'POKEMON_PATH=${placeholder "out"}/share/pokemonsay' \
+      --replace-fail \
+        '$(find ' \
+        '$(${findutils}/bin/find ' \
+      --replace-fail \
+        '$(basename ' \
+        '$(${coreutils}/bin/basename ' \
+      --replace-fail \
+        'cowsay -f ' \
+        '${cowsay}/bin/cowsay -f ' \
+      --replace-fail \
+        'cowthink -f ' \
+        '${cowsay}/bin/cowthink -f '
+
+    substituteInPlace pokemonthink.sh \
+      --replace-fail \
+        './pokemonsay.sh' \
+        "${placeholder "out"}/bin/pokemonsay"
+  '';
+
+  installPhase = ''
+    mkdir -p $out/{bin,share/pokemonsay}
+    cp pokemonsay.sh $out/bin/pokemonsay
+    cp pokemonthink.sh $out/bin/pokemonthink
+    cp pokemons/*.cow $out/share/pokemonsay
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    (set -x
+      test "$($out/bin/pokemonsay --list | wc -l)" -ge 891
+    )
+  '';
+
+  meta = with lib; {
+    description = "Print pokemon in the CLI! An adaptation of the classic cowsay";
+    homepage = "https://github.com/HRKings/pokemonsay-newgenerations";
+    license = licenses.mit;
+    platforms = platforms.all;
+    maintainers = with maintainers; [ pbsds ];
+  };
+}
+```
+
+### Dependencies
+
+::: {.codewindow}
+```bash
+# nix-store --query --requisites $(which pokemonsay)
+/nix/store/m2047a1xwgblgkrnbxz0yilkaqfrbf2b-xgcc-14-20241116-libgcc
+/nix/store/nj19yxkqf0iqjqn4x6dbglsvqk5bgsbs-libunistring-1.3
+/nix/store/y2xxdhhjy2l5mgpm3d0rw2wxmpd61my4-libidn2-2.3.7
+/nix/store/rmy663w9p7xb202rcln4jjzmvivznmz8-glibc-2.40-66
+/nix/store/pn0rk0wsmkjazbz380y8xzb99n8sr07g-attr-2.5.2
+/nix/store/4izi23kn57b3cw47jddzq14wcv01b5y5-acl-2.3.2
+/nix/store/58br4vk3q5akf4g8lx0pqzfhn47k3j8d-bash-5.2p37
+/nix/store/ll9dm3r87v4r46a0km0zck4968m60vys-libxcrypt-4.4.38
+/nix/store/xijpnhg8mg0g4lahwrxdwylpcq7249gc-zlib-1.3.1
+/nix/store/id29wx2vp10d5xi6wzsykd4rb9ssaikx-gcc-14-20241116-libgcc
+/nix/store/ik84lbv5jvjm1xxvdl8mhg52ry3xycvm-gcc-14-20241116-lib
+/nix/store/rlpanzl29s3gv3wgs5720q04rbgysl8a-gmp-with-cxx-6.3.0
+/nix/store/yh6qg1nsi5h2xblcr67030pz58fsaxx3-coreutils-9.6
+/nix/store/8v0r6qxs5cps7cgcjp215895wja6k0by-perl-5.40.0
+/nix/store/ixskg19qvf8gfwbdlajc4498c1km1jyf-cowsay-3.8.4
+/nix/store/xq5f95pp297afc2xjgrmhmf9w631qp7m-findutils-4.10.0
+/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0
+```
+:::
+
+### Network
+
+![](assets/img/pokemonsay_query_graph.svg){width="60%"}
+
+::: {.notes}
+
+Like a graph database
+* Entries in store are like nodes, relationships among them are edges
+
+```bash
+# edges pointing to R
+nix-store --query --references $(which R)
+
+# edges pointing from R (i.e. packages)
+nix-store --query --referers $(which R)
+
+# transitive closure (recursive dependencies)
+nix-store --query --requisites $(which R)
+
+# graph
+nix-store --query --graph $(which R) | dot -Tsvg -o scratch/r.svg
+
+# nix-visualize
+# https://github.com/craigmbooth/nix-visualize
+nix run github:craigmbooth/nix-visualize -- $(which R) -s R -o scratch/r_graph_depviz.png
+```
+
+:::
+
+
+## Enter `{rix}`
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+* Project-specific **sandbox** environments powered by Nix
+* Intuitive functions to create Nix expressions, **all within R**
+* Access to (nearly) all CRAN and Bioconductor packages
+* Install packages from GitHub
+* Convert `renv.lock` file to Nix expressions!
+
+:::
+
+::: {.column width="40%"}
+
+[![](assets/img/rix.png)](https://docs.ropensci.org/rix/)
+:::
+
+::::
+
+::: {.notes}
+Authors:
+
+* Bruno Rodriguez
+* Philipp Baumann
+:::
+
+
+## `rix` in Action
+
+::: {.panel-tabset}
+
+### rix
+
+```{.r code-line-numbers="|4|5|6|7-13"}
+library(rix)
+
+rix(
+  r_ver = "4.4.3",
+  r_pkgs = c("shiny"),
+  system_pkgs = c("pokemonsay"),
+  git_pkgs = list(
+    list(
+      package_name = "doltr",
+      repo_url = "https://github.com/ecohealthalliance/doltr/",
+      commit = "ffb5bc68003e83ebdb9f352654bab2515ca6bf3a"
+    )
+  ),
+  project_path = ".",
+  overwrite = TRUE
+)
+```
+
+### Nix Config
+
+```
+{{< include assets/code_examples/default.nix >}}
+```
+
+### Bootstrap Demo
+
+{{< video assets/img/rix_demo_prebaked.mp4 >}}
+
+:::
+
+
+# Realistic Use Case
+
+## Reflections (Good)
+
+✅ Feels like native environments on host system
+
+✅ One source of truth for dev environment
+
+✅ Reproducible installations across different operating systems (and even architectures)
+
+✅ Intelligent use of caching
+
+## Reflections (Caution)
+
+❗️ Immutable file system conflicts with "temp" file creation
+
+❗️ Steep learning curve for Nix language
+
+❗️ HD space could be maxed out on lower-spec systems
+
+❗️ Early days for Nix & Data Science
+
+## Eric's Additional Nix/Rix Explorations
+
+* R Weekly Curation Calendar ([Quarto Dashboard](https://rweekly.github.io/rweekly-calendar/), [GitHub](https://github.com/rweekly/rweekly-calendar) )
+* R Submissions Pilot 4 (Docker Container) ([GitHub](https://github.com/RConsortium/submissions-pilot4-container/tree/main))
+* Dataset-JSON Viewer: Fork to create web-assembly version ([App](https://rpodcast.github.io/Dataset-JSON-hackathon/), [GitHub](https://github.com/rpodcast/Dataset-JSON-hackathon))
+* This presentation ([GitHub](https://github.com/rpodcast/nix-shinyconf2025))
+
+## Level-up your Nix Knowledge
+
+* [`{rix}`](https://docs.ropensci.org/rix/): Reproducible environments with Nix
+* [Zero to Nix](https://zero-to-nix.com/): Your guide to learning Nix and flakes
+* [Bruno Rodriguez](https://brodrigues.co/): Reproducible data science with Nix series
+* [What is Nix](https://shopify.engineering/what-is-nix#) (Shopify blog)
+* [What is Nix and Why You Should Use It](https://serokell.io/blog/what-is-nix) (Alexander Bantyev)
+
+## Thank You!
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+{{< fa solid microphone size=xl >}} [R-Podcast](https://r-podcast.org)
+
+{{< fa solid microphone size=xl >}} [R Weekly Highlights](https://serve.podhome.fm/r-weekly-highlights)
+
+{{< fa solid display >}} [Shiny Developer Series](https://shinydevseries.com)
+
+{{< fa brands mastodon size=xl >}} [\@rpodcast](https://podcastindex.org/@rpodcast)
+
+{{< fa brands linkedin size=xl >}} [eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)
+
+{{< fa brands github size=xl >}} [rpodcast](https://github.com/rpodcast/)
+:::
+
+::: {.column width=50%}
+
+![](assets/img/rpodcast-hexagon.png)
