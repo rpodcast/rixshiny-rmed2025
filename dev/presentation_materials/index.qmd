@@ -21,7 +21,7 @@ author:
       - "{{< fa brands bluesky >}} [@rpodcast.bsky.social](https://bsky.app/profile/rpodcast.bsky.social)"
       - "{{< fa brands mastodon >}} [@rpodcast@podcastindex.social](https://podcastindex.social/@rpodcast)"
       - "{{< fa brands linkedin >}} [@eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)"
-date: April 11, 2025
+date: June 9, 2025
 revealjs-plugins:
   - codewindow
 ---
