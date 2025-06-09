@@ -1,5 +1,5 @@
 ---
-title: "In the Nix of Time"
+title: "Reproducible Analytical Environments"
 subtitle: "A new approach to Shiny development & deployment with Nix and {rix}"
 title-slide-attributes: 
   data-background-image: assets/img/futuristic_city.jpg
@@ -337,9 +337,7 @@ stdenvNoCC.mkDerivation rec {
 ```
 :::
 
-### Network
-
-![](assets/img/pokemonsay_query_graph.svg){width="60%"}
+:::
 
 ::: {.notes}
 
@@ -433,8 +431,11 @@ rix(
 
 :::
 
+## Demo: NHANES Survey Data Explorer
 
-# Realistic Use Case
+* Shiny app to explore National Health and Nutrition Examination Survey (NHANES) data collected between 2012-2018
+* App constructed with the [`{golem}`](https://thinkr-open.github.io/golem/) package
+* Source repository on GitHub: [rpodcast/rixshiny-rmed2025](https://github.com/rpodcast/rixshiny-rmed2025)
 
 ## Reflections (Good)
 
