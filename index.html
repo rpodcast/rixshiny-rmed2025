@@ -15,7 +15,7 @@
 
   <meta name="author" content="Eric Nantz">
   <meta name="dcterms.date" content="2025-06-09">
-  <title>In the Nix of Time</title>
+  <title>Reproducible Analytical Environments</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -199,7 +199,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="black" data-background-image="assets/img/futuristic_city.jpg" data-background-opacity="0.4" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">In the Nix of Time</h1>
+  <h1 class="title">Reproducible Analytical Environments</h1>
   <p class="subtitle">A new approach to Shiny development &amp; deployment with Nix and {rix}</p>
 
 <div class="quarto-title-authors">
@@ -438,15 +438,15 @@ Eric Nantz
 <section id="under-the-nix-hood" class="slide level2">
 <h2>Under the Nix Hood</h2>
 <div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Nix Store</a></li><li><a href="#tabset-2-2">Derivation</a></li><li><a href="#tabset-2-3">Dependencies</a></li><li><a href="#tabset-2-4">Network</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Nix Store</a></li><li><a href="#tabset-1-2">Derivation</a></li><li><a href="#tabset-1-3">Dependencies</a></li></ul>
 <div class="tab-content">
-<div id="tabset-2-1">
+<div id="tabset-1-1">
 <div class="codewindow">
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># which pokemonsay</span></span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0/bin/pokemonsay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-2">
+<div id="tabset-1-2">
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/by-name/po/pokemonsay/package.nix</span></span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="ex">lib,</span></span>
@@ -528,7 +528,7 @@ Eric Nantz
 <span id="cb3-79"><a aria-hidden="true" tabindex="-1"></a>  <span class="kw">};</span></span>
 <span id="cb3-80"><a aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-2-3">
+<div id="tabset-1-3">
 <div class="codewindow">
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># nix-store --query --requisites $(which pokemonsay)</span></span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/m2047a1xwgblgkrnbxz0yilkaqfrbf2b-xgcc-14-20241116-libgcc</span></span>
@@ -550,8 +550,8 @@ Eric Nantz
 <span id="cb4-18"><a aria-hidden="true" tabindex="-1"></a><span class="ex">/nix/store/xq1cs65ic3m0qdpwcjvdgd7yfq8c3ssv-pokemonsay-1.0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-4">
-<p><img data-src="assets/img/pokemonsay_query_graph.svg" style="width:60.0%"></p>
+</div>
+</div>
 <aside class="notes">
 <p>Like a graph database * Entries in store are like nodes, relationships among them are edges</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># edges pointing to R</span></span>
@@ -580,6 +580,7 @@ Eric Nantz
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 <section id="enter-rix" class="slide level2">
 <h2>Enter <code>{rix}</code></h2>
 <div class="columns">
@@ -615,9 +616,9 @@ Eric Nantz
 <section id="rix-in-action" class="slide level2">
 <h2><code>rix</code> in Action</h2>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">rix</a></li><li><a href="#tabset-1-2">Nix Config</a></li><li><a href="#tabset-1-3">Bootstrap Demo</a></li></ul>
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">rix</a></li><li><a href="#tabset-2-2">Nix Config</a></li><li><a href="#tabset-2-3">Bootstrap Demo</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1">
+<div id="tabset-2-1">
 <div class="sourceCode" id="cb6" data-code-line-numbers="|4|5|6|7-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(rix)</span>
 <span id="cb6-2"><a></a></span>
 <span id="cb6-3"><a></a><span class="fu">rix</span>(</span>
@@ -635,7 +636,7 @@ Eric Nantz
 <span id="cb6-15"><a></a>  <span class="at">overwrite =</span> <span class="cn">TRUE</span></span>
 <span id="cb6-16"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-2">
+<div id="tabset-2-2">
 <pre><code># This file was generated by the {rix} R package v0.15.8 on 2025-04-10
 # with following call:
 # &gt;rix(r_ver = "4.4.3",
@@ -710,15 +711,19 @@ in
   }
 </code></pre>
 </div>
-<div id="tabset-1-3">
+<div id="tabset-2-3">
 <video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="assets/img/rix_demo_prebaked.mp4"></video>
 </div>
 </div>
 </div>
 </section>
-<section id="realistic-use-case" class="title-slide slide level1 center">
-<h1>Realistic Use Case</h1>
-
+<section id="demo-nhanes-survey-data-explorer" class="slide level2">
+<h2>Demo: NHANES Survey Data Explorer</h2>
+<ul>
+<li>Shiny app to explore National Health and Nutrition Examination Survey (NHANES) data collected between 2012-2018</li>
+<li>App constructed with the <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a> package</li>
+<li>Source repository on GitHub: <a href="https://github.com/rpodcast/rixshiny-rmed2025">rpodcast/rixshiny-rmed2025</a></li>
+</ul>
 </section>
 <section id="reflections-good" class="slide level2">
 <h2>Reflections (Good)</h2>
@@ -768,11 +773,6 @@ in
 
 
 </div></div>
-</section>
-
-</div>
-</div>
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
