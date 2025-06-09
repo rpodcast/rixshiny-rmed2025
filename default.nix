@@ -25,6 +25,7 @@
 #  > "stringr",
 #  > "survey",
 #  > "srvyr",
+#  > "teal.slice",
 #  > "rix"),
 #  > system_pkgs = "quarto",
 #  > local_r_pkgs = local_r_pkgs,
@@ -65,6 +66,7 @@ let
       srvyr
       stringr
       survey
+      teal_slice
       testthat
       tidyr;
   };

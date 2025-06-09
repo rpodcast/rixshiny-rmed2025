@@ -35,6 +35,7 @@ rix(
     "stringr",
     "survey",
     "srvyr",
+    "teal.slice",
     "rix"
   ),
   local_r_pkgs = local_r_pkgs,
