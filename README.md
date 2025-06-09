@@ -1,8 +1,10 @@
-<!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-<!-- badges: end -->
+## Reproducible Analytical Environments
 
-More to come!
+This repository contains the materials shared during the 2025 R/Medicine demonstration on creating reproducible analytical environments using the Nix package manager and the `{rix}` R package, with emphasis on robust Shiny application development and deployment.
+
+You can view the slides for the demonstration at [rpodcast.github.io/rixshiny-rmed2025](https://rpodcast.github.io/rixshiny-rmed2025/).
+
+This repository contains an example (small) Shiny application for exploring the National Health and Nutrition Examination Survey (NHANES) data collected between 2012-2018.
 
 ## Code of Conduct
   
