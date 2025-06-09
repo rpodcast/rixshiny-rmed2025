@@ -36,6 +36,9 @@ rix(
     "survey",
     "srvyr",
     "teal.slice",
+    "bsicons",
+    "writexl",
+    "labelled",
     "rix"
   ),
   local_r_pkgs = local_r_pkgs,
