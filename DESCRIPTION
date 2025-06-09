@@ -10,14 +10,18 @@ BugReports: https://github.com/rpodcast/rixshiny-rmed2025/issues
 Depends: 
     R (>= 3.5)
 Imports: 
+    bsicons,
     bslib,
     config,
     dplyr,
     golem,
     htmltools,
     markdown,
+    reactable,
     shiny,
-    teal.slice
+    stringr,
+    teal.slice,
+    writexl
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2

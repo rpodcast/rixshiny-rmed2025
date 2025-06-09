@@ -51,6 +51,11 @@ app_ui <- function(request) {
         "Home",
         value = "home",
         mod_home_ui("home_1")
+      ),
+      nav_panel(
+        "Data Explorer",
+        value = "data_explorer",
+        mod_explorer_ui("explorer_1")
       )
     )
   )

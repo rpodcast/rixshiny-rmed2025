@@ -8,6 +8,7 @@
 app_server <- function(input, output, session) {
   # reactive values
   custom_datasets_rv <- reactiveVal(NULL)
+  reset_trigger <- reactiveVal(NULL)
 
   # update to sub-page/sub-URL when we move to a new tab from the navbar
   observeEvent(session$clientData$url_hash, {
@@ -86,4 +87,13 @@ app_server <- function(input, output, session) {
     )
     return(custom_report_df)
   })
+
+  # clear all filter choices and refresh data to original state
+  observeEvent(input$remove_all_filters, {
+    clear_filter_states(custom_datasets_rv())
+    reset_trigger(rnorm(1))
+  })
+
+  # execute modules
+  mod_explorer_server("explorer_1", full_report_df)
 }
