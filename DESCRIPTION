@@ -5,14 +5,19 @@ Authors@R:
     person("Eric", "Nantz", , "theRcast@gmail.com", role = c("aut", "cre"))
 Description: Shiny application for reviewing the NHANES survey data.
 License: MIT + file LICENSE
-Imports: 
-    config,
-    golem,
-    shiny
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.3.2
 URL: https://github.com/rpodcast/rixshiny-rmed2025
 BugReports: https://github.com/rpodcast/rixshiny-rmed2025/issues
 Depends: 
     R (>= 3.5)
+Imports: 
+    bslib,
+    config,
+    dplyr,
+    golem,
+    htmltools,
+    markdown,
+    shiny,
+    teal.slice
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
